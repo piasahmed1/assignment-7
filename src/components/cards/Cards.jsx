@@ -1,9 +1,9 @@
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import Card from "../card/Card";
-const Cards = () => {
-  const [cards, setCards] = useState([]);
-  const [selectedCard, setSelectedCard] = useState([]);
+const photos = () => {
+  const [photos, setphotos] = useState([]);
+  const [targetphoto, settargetphoto] = useState([]);
   const [totalCredit, setTotalCredit] = useState(0);
   const [totalRemainingHours, setRemainingHours] = useState(20);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -11,26 +11,27 @@ const Cards = () => {
   useEffect(() => {
     fetch("data.json")
       .then((res) => res.json())
-      .then((data) => setCards(data));
+      .then((data) => setphotos(data));
   }, []);
 
-  const handleCardSelect = (cardItem) => {
-    const existSelect = selectedCard.find((id) => id.id === cardItem.id);
+  const handlephotoselect = (cardItem) => {
+    const existSelect = targetphoto.find((id) => id.id === cardItem.id);
     let creditHours = cardItem.credit;
-    // console.log(creditHours);
+
+  
     if (existSelect) {
       return Swal.fire({
         icon: "error",
         title: "Oops...Already Exists!!",
       });
     } else {
-      // selected credit(time)
-      selectedCard.forEach((credit) => {
+      
+      targetphoto.forEach((credit) => {
         creditHours = creditHours + credit.credit;
       });
-      // total price count here
+      
       let totalCost = cardItem.price;
-      selectedCard.forEach((total) => {
+      targetphoto.forEach((total) => {
         totalCost += total.price;
       });
       setTotalPrice(totalCost);
@@ -43,14 +44,12 @@ const Cards = () => {
 
       setRemainingHours(newRemainingHours);
       setTotalCredit(creditHours);
-      const newSelected = [...selectedCard, cardItem];
-      setSelectedCard(newSelected);
+      const newSelected = [...targetphoto, cardItem];
+      settargetphoto(newSelected);
     }
   };
-  // console.log(cards);
-  // console.log(selectedCard);
-  // console.log(totalCredit);
-  // console.log(totalRemainingHours);
+
+  
   console.log(totalPrice);
   return (
     <>
@@ -59,11 +58,11 @@ const Cards = () => {
       </h2>
       <div className="flex gap-5 lg:mx-10 my-12 justify-evenly lg:flex-wrap lg:flex-row md:flex-col flex-col">
         <div className=" lg:w-[75%] grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {cards.map((cards, id) => (
+          {photos.map((photos, id) => (
             <Card
-              cards={cards}
+              photos={photos}
               key={id}
-              handleCardSelect={handleCardSelect}
+              handlephotoselect={handlephotoselect}
             ></Card>
           ))}
         </div>
@@ -74,7 +73,7 @@ const Cards = () => {
           <hr />
           <h1 className="text-[20px] font-bold my-4">Course Name</h1>
           <ol className="list-decimal list-inside">
-            {selectedCard.map((select, idx) => (
+            {targetphoto.map((select, idx) => (
               <li className="text-base font-semibold" key={idx}>
                 {" "}
                 {select.title}
@@ -95,4 +94,4 @@ const Cards = () => {
   );
 };
 
-export default Cards;
+export default photos;
