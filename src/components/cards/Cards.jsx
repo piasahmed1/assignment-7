@@ -41,6 +41,7 @@ const photos = () => {
       if (creditHours > 20) {
         return Swal.fire("Your Remaining Hours is Finished!");
       }
+      
 
       setRemainingHours(newRemainingHours);
       setTotalCredit(creditHours);
@@ -64,6 +65,7 @@ const photos = () => {
               key={id}
               handlephotoselect={handlephotoselect}
             ></Card>
+
           ))}
         </div>
         <div className="lg:w-[20%] h-full p-6 bg-white rounded-md px-7">
