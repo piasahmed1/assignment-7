@@ -20,6 +20,7 @@ const Card = ({ photos, handlephotoselect }) => {
           <BsBook className="text-xl" /> credit: {credit}hrs
         </p>
       </div>
+      
       <button
         onClick={() => handlephotoselect(photos)}
         className="w-full bg-[#2F80ED] text-white px-5 py-2 text-xl rounded-md hover:bg-[#1361c7] hover:transition-all focus:bg-[#1361c7] "
